@@ -7,11 +7,11 @@ title:  Proposal
 
 ### Summary
 
-This project’s objective is to remove rain from photos of scenes in Minecraft. We will use machine learning algorithms to transform a Minecraft scene image taken under rainy conditions(input) into a clearer image of the same scene without rain effects. (output). Our dataset will be a self-made collection of paired images depicting a scene under both rainy and normal conditions.This project would allow users to share clearer images of scenes taken under rainy conditions and could possibly be applied to images of scenes in other video games as well.
+This project’s objective is to remove rain from photos of scenes in Minecraft. We will use machine learning algorithms to transform a Minecraft scene image taken under rainy conditions (input) into an image of the same scene without rain (output). Our dataset will be a self-made collection of paired images depicting a scene under both rainy and normal conditions.This project will allow users to share clear gameplay even in rainy weather, and will show the effectiveness of rain removal using generative adversarial networks in a simulated realistic environment of Minecraft.
 
 ### Algorithms
 
-We will be using generative adversarial networks (GAN) and potentially convolutional neural networks (CNN) as well.
+We will build generative adversarial networks (GANs) models that utilize various convolutional and dense layers.
 
 ### Evaluation Plan
 
@@ -19,7 +19,7 @@ The base case for our project will be rain against a brick wall. Hence, the algo
 
 #### Quantitative 
 
-Once a de-rained image has been produced, its pixels will be compared to the same scene in clear weather from our dataset of paired images. Our goal is for at least 70% of the pixels in the output image to be accurately matching their corresponding pixels in the clear image. We can verify the internals of the algorithm work by pixel accuracy improving over time. 
+Once a de-rained image has been produced, its pixels will be compared to the same scene in clear weather from our dataset of paired images. Our goal is for at least 70% of the pixels in the output image to be accurately matching their corresponding pixels in the clear image. We can verify the internals of the algorithm work by pixel accuracy improving over time. We will build multiple baseline models using simple GANs and increase complexity of the models according to existing rain removal GANs algorithms that have been published.
 
 #### Qualitative 
 
