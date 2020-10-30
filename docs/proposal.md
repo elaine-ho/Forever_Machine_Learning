@@ -33,8 +33,12 @@ Human participants can compare a mixed set of model output images and target cle
 
 4:30 PM on Thursday, October 22
 
+### Achievable Goal for November 13
+
+- Collect various weather images in Minecraft to build the dataset
+- Build a simple GANs model that trains on paired weather images
+- Evaluate output of the model and tweak to hit at least 50% pixel accuracy
 
 ### Group Meeting Time
 
-7:30PM on Monday, November 2
-
+7:30PM on Mondays
