@@ -10,7 +10,7 @@ from .neural_model import NeuralModel as Model
 NUM_DOWNS = 8
 NGF = 64
 
-
+# Reference: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/
 class Pix2PixUnet(Model, nn.Module):
     """Create a Unet-based generator"""
 

@@ -10,3 +10,7 @@ __pycache__/
 
 # data
 code/data/
+
+
+# jupyter notebooks
+.ipynb_checkpoints
