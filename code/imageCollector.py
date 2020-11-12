@@ -58,7 +58,6 @@ missionXML='''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
                   <ServerQuitWhenAnyAgentFinishes/>
                 </ServerHandlers>
               </ServerSection>
-              
               <AgentSection mode="Creative">
                 <Name>yaboi</Name>
                 <AgentStart>
@@ -130,8 +129,3 @@ while world_state.is_mission_running:
   print(x,z)
   agent_host.sendCommand("chat /weather rain")
   agent_host.sendCommand("chat /tp yaboi " + str(x) + " 100 " + str(z))
-
-
-print()
-print("Mission ended")
-# Mission has ended.
