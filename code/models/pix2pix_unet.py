@@ -3,12 +3,32 @@ from typing import List
 import functools
 import torch.nn as nn
 import torch
+from torch.utils.data import DataLoader
+from torch.utils import data
+import h5py
+
 
 from .neural_model import NeuralModel as Model
 
 # Hyperparameters
 NUM_DOWNS = 8
 NGF = 64
+LAMBDA_L1 = 10
+
+class Dataset(data.Dataset):
+    def __init__(self, x, y=None):
+        self.x = x
+        self.y = y
+
+    def __len__(self):
+        return len(self.x)
+
+    def __getitem__(self, index):
+        if self.y is None:
+            return self.x[index]
+        else:
+            return self.x[index], self.y[index]
+
 
 # Reference: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/
 class Pix2PixUnet(Model, nn.Module):
@@ -31,6 +51,7 @@ class Pix2PixUnet(Model, nn.Module):
         # hyper params
         self.num_downs = NUM_DOWNS
         self.ngf = NGF
+        self.lambda_L1 = LAMBDA_L1
         self.norm_layer = nn.BatchNorm2d
 
         # construct unet structure
@@ -42,36 +63,57 @@ class Pix2PixUnet(Model, nn.Module):
         unet_block = UnetSkipConnectionBlock(self.ngf * 2, self.ngf * 4, input_nc=None, submodule=unet_block, norm_layer=self.norm_layer)
         unet_block = UnetSkipConnectionBlock(self.ngf, self.ngf * 2, input_nc=None, submodule=unet_block, norm_layer=self.norm_layer)
         self.model = UnetSkipConnectionBlock(self.output_c, self.ngf, input_nc=self.input_c, submodule=unet_block, outermost=True, norm_layer=self.norm_layer)  # add the outermost layer
-        
-        # THIS MIGHT BE DIFFERENT. NOT SURE WHICH ONE THEY ARE USING.
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
-        self.criterion = nn.BCELoss()
+
+        self.device = torch.device(
+            f"cuda:0" if torch.cuda.is_available() else "cpu"
+        )
+        print(f"Device: {self.device}")
+        self.model.to(self.device)
+
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr, betas=(self.beta1, 0.999))
+        self.criterion = nn.BCEWithLogitsLoss()
+        self.criterionL1 = torch.nn.L1Loss()
 
     def forward(self, x):
         return self.model(x)
 
 
     def train(self):
-        #TODO: Call a load data function. Do the 80/20 split.
-        # Use torch.utils.data.DataLoader to load data.
-        train_loader = []  #TODO: replace with training data
+        # load data from file
+        with h5py.File('C:/Users/Kai/GitHub/Forever_Machine_Learning/code/data_950.h5', 'r') as hf:
+            data_x = hf['x'][:]
+            data_y = hf['y'][:]
+
+        # 80/20 split
+        # data_tr, data_te = data_obs.split()
+        train_ind = int(len(data_x) * 0.8)
+        data_tr = Dataset(data_x[:train_ind], data_y[:train_ind])
+        data_te = Dataset(data_x[train_ind:], data_y[train_ind:])
+
+        train_loader = DataLoader(
+            data_tr,
+            batch_size=self.batch_size,
+            shuffle=self.shuffle
+        )
 
         train_losses = []
 
         for epoch in range(self.num_epochs):
-            start_time = time.time()
+            start_time1 = time.time()
 
-            epoch_loss = torch.tensor(0.0)
+            epoch_loss = torch.tensor(0.0, device=self.device)
 
             for batch_idx, batch in enumerate(train_loader):
+                start_time2 = time.time()
 
-                #TODO: Call a function to prepare batch of data.
-                data, target = [], []  #TODO: replace with loaded data
+                data, target = batch
 
-                outputs = self.model(data)
+                outputs = self.model(data.float().to(self.device))
 
-                loss = self.criterion(outputs, target)
-                
+                loss_gen = self.criterion(outputs, target.float().to(self.device))
+                loss_L1 = self.criterionL1(outputs, target) * self.lambda_L1
+                loss = loss_gen + loss_L1
+
                 # Aggregate loss across mini-batches (per epoch)
                 epoch_loss += loss
 
@@ -79,13 +121,19 @@ class Pix2PixUnet(Model, nn.Module):
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+                print(
+                f"Epoch: {epoch}\tBatch: {batch_idx}\tGen Loss: {loss_gen:.5f}\tL1 Loss: {loss_L1:.5f}"
+                f"\tTotal Time: {(time.time() - start_time2)/60:.3f} minutes"
+                )
 
             print(
                 f"Epoch: {epoch}\tTrain Loss: {epoch_loss/len(train_loader):.5f}"
-                f"\tTotal Time: {time.time() - start_time:.3f}"
+                f"\tTotal Time: {(time.time() - start_time1)/60:.3f} minutes"
             )
 
             train_losses.append(epoch_loss / len(train_loader))
+
+        return train_losses
 
 
 
