@@ -1,8 +1,8 @@
 import cv2
 from PIL import Image
 
-# Crops image file to a square with a centered pivot then resizes to width, height
-def crop_and_resize(filename, width, height)
+# Crops image file to a square with a centered pivot then resizes to width = height = size
+def crop_and_resize(filename, size)
     img = cv2.imread(filename)
     if img.shape[1] > img.shape[0]:
         start_y = int(img.shape[1]/2 - img.shape[0]/2)
@@ -12,7 +12,7 @@ def crop_and_resize(filename, width, height)
         start_x = int(img.shape[0]/2 - img.shape[1]/2)
         end_x = start_x + img.shape[1]
         crop = img[start_x:end_x, 0:img.shape[1]]
-    return cv2.resize(crop, (width, height))
+    return cv2.resize(crop, (size, size))
 
 # TO USE: img.getpixel((x,y)) for rgb at x,y
 def rgb(cv2_image):
