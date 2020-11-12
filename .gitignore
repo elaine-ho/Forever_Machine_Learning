@@ -6,3 +6,7 @@ __pycache__/
 # Pycharm/VSCode
 .idea/
 .vscode/
+
+
+# data
+code/data/
