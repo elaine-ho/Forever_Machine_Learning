@@ -31,7 +31,7 @@ As a first step for evaluating our images, we checked the loss functions to make
 
 The second form of evaluation was through visually comparing side by side photos of the input, predicted, and target data. As seen below, the Minecraft rain images to sunny performed fairly well in removing the blue streaks. The images were slightly blurred because of the smoothing that occurs to remove the rain. The sunny to rain conversion was slightly more difficult for the model through visual inspection as the images were darkened for the rain effect but was not able to portray blue streaks.
 
-Generated images for removing rain: 
+**Generated images for removing rain: **
 
 ![de-rain image 1](/images/derain1.png)
 
@@ -45,7 +45,7 @@ Generated images for removing rain:
 
 ![de-rain image 6](/images/derain7.png)
 
-Inverse mapping of our model to add rain: 
+**Inverse mapping of our model to add rain: **
 
 ![de-rain image 1](/images/rain1.png)
 
@@ -62,7 +62,6 @@ In the remaining weeks of the quarter we will work to improve the performance of
 In terms of evaluation, we still want to use pixel comparison; we will compare the RBG values of the pixels of our output images to the RGB values of the corresponding pixels in the paired image. 
 
 We also want to try the qualitative evaluation approach described in our proposal, of having human participants explain what differences they see between the outputted images and the true pair images. Although we have stated our judgement of the produced images above, we still need human participants to rate the quality of our image conversion.
-
 
 ### Resources Used
 

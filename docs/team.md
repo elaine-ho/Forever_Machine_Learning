@@ -6,11 +6,11 @@ title:  Team
 # {{ page.title }}
 
 
-## USER 1
+## Elaine Ho
 ***UCI Net ID***: elaineh4
 
-## USER 2
+## Nathan Ma
 ***UCI Net ID***: nathanm2
 
-## USER 3
+## Kai Malloy
 ***UCI Net ID***: ksmalloy

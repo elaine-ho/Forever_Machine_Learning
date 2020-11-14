@@ -3,7 +3,7 @@ layout: default
 title:  Home
 ---
 
-This project's focus is on in-game Minecraft image conversion. Using self-made paired image data from Minecraft, we attempt to convert between weather conditions, like rainy and sunny, and between different times of day. Using GAN's with Unets, our machine learning model uses paired data to predict and generate images given each pair.
+This project's focus is on in-game Minecraft image conversion. Using self-made paired image data from Minecraft, we attempt to convert between weather conditions, like rainy and sunny, and between different times of day. Using a deep neural network with a U-net architecture, our machine learning model uses paired data to predict and generate images given each pair.
 
 Here are some examples of scenes we removed rain from: 
 
