@@ -15,7 +15,7 @@ This project’s objective is to generate minecraft scenes in different environm
 
 To convert Minecraft landscapes from rain to sunny and vice versa, we took inspiration from image to image translation GANs models. Since the combination of Malmo and Minecraft allowed us to generate paired data, we decided to use only the generator to create a deep neural network with a U-Net architecture. This encoder and decoder structure of the U-net works to downsample and upsample the image with skip connections between mirrored layers as shown below from Phillip Isola’s paper. The layers are comprised of convolutions, rectifiers, and batch normalization. The encoder down samples the image to 1x1 through 8 blocks down and up samples back to 256x256 with 8 blocks up, gradually reducing the filter size as recommended in the referenced image to image translation paper.
 
-![Encoder-Decoder Unets](/images/unets.png)
+![Encoder-Decoder Unets](/images/model.png)
 
 Once the layers are constructed, other parameters are set including the optimizer using Adam with a learning rate of 0.0001 and beta values of 0.5 and 0.999. The L1 loss function multiplied by a weight of 100 concatenated to the binary cross entropy loss is used (both equations listed below). Both loss functions are used because the BCE loss helps to smooth the images as it has a bias towards 0.5 while the L1 loss is used to maintain the original rgb of the input image.
 
