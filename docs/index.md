@@ -3,6 +3,10 @@ layout: default
 title:  Home
 ---
 
+This project's focus is on in-game Minecraft image conversion. Using self-made paired image data from Minecraft, we attempt to convert between weather conditions, like rainy and sunny, and between different times of day. 
+
+---
+
 Source code: https://github.com/elaine-ho/Forever_Machine_Learning
 
 Reports:
@@ -11,30 +15,4 @@ Reports:
 - [Status](status.html)
 - [Final](final.html)
 
-What's Markdown (`.md`)?
-
-Markdown is markup that lets you write hypertext (HTML) documents
-in easy-to-read and easy-to-write plain text.
-No angle brackets `<></>` required for
-paragraphs, lists, blockquotes, tables, etc.
-
-
-This is a paragraph (in Markdown). Some more
-text here.
-
-This is another paragraph.
-
-This is a list:
-
-- Orange
-- Apple
-- Blueberry
-
-$$x^2 = y^2$$
-
-
-Just getting started with Markdown?
-See the [HTML <-> Markdown Quick Reference (Cheat Sheet)][quickref].
-
-
-[quickref]: https://github.com/mundimark/quickrefs/blob/master/HTML.md
+Group Meeting Time: 7:30PM on Mondays
