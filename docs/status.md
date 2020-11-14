@@ -31,7 +31,7 @@ As a first step for evaluating our images, we checked the loss functions to make
 
 The second form of evaluation was through visually comparing side by side photos of the input, predicted, and target data. As seen below, the Minecraft rain images to sunny performed fairly well in removing the blue streaks. The images were slightly blurred because of the smoothing that occurs to remove the rain. The sunny to rain conversion was slightly more difficult for the model through visual inspection as the images were darkened for the rain effect but was not able to portray blue streaks.
 
-**Generated images for removing rain: **
+**Generated images for removing rain:**
 
 ![de-rain image 1](/images/derain1.png)
 
@@ -45,7 +45,7 @@ The second form of evaluation was through visually comparing side by side photos
 
 ![de-rain image 6](/images/derain7.png)
 
-**Inverse mapping of our model to add rain: **
+**Inverse mapping of our model to add rain:**
 
 ![de-rain image 1](/images/rain1.png)
 
