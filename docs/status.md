@@ -19,13 +19,9 @@ To convert Minecraft landscapes from rain to sunny and vice versa, we took inspi
 
 Once the layers are constructed, other parameters are set including the optimizer using Adam with a learning rate of 0.0001 and beta values of 0.5 and 0.999. The L1 loss function multiplied by a weight of 100 concatenated to the binary cross entropy loss is used (both equations listed below). Both loss functions are used because the BCE loss helps to smooth the images as it has a bias towards 0.5 while the L1 loss is used to maintain the original rgb of the input image.
 
-<<<<<<< HEAD
 ![Binary Cross-Entropy / Log Loss](/images/log-loss.png)
 
 ![Loss Function](/images/l1-loss-function.png)
-=======
-![loss plots example](/images/lossPlots_10_10.png)
->>>>>>> 70c9cdf9d862104350bd8dabc55a0831c4070c72
 
 ### Evaluation
 
