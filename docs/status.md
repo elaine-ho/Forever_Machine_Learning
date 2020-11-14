@@ -19,9 +19,13 @@ To convert Minecraft landscapes from rain to sunny and vice versa, we took inspi
 
 Once the layers are constructed, other parameters are set including the optimizer using Adam with a learning rate of 0.0001 and beta values of 0.5 and 0.999. The L1 loss function multiplied by a weight of 100 concatenated to the binary cross entropy loss is used (both equations listed below). Both loss functions are used because the BCE loss helps to smooth the images as it has a bias towards 0.5 while the L1 loss is used to maintain the original rgb of the input image.
 
+<<<<<<< HEAD
 ![Binary Cross-Entropy / Log Loss](/images/log-loss.png)
 
 ![Loss Function](/images/l1-loss-function.png)
+=======
+![loss plots example](/images/lossPlots_10_10.png)
+>>>>>>> 70c9cdf9d862104350bd8dabc55a0831c4070c72
 
 ### Evaluation
 
@@ -59,7 +63,9 @@ Inverse mapping of our model to add rain:
 
 In the remaining weeks of the quarter we will work to improve the performance of the model on paired rainy and clear weather images. This can be improved by training the model for extended periods of time and possibly tweaking the Unet layers. Our reach goal is to build a similar model but for night and day in Minecraft rather than weather.
 
-In terms of evaluation, we want to try the qualitative evaluation approach described in our proposal, of having human participants explain what differences they see between the outputted images and the true pair images. Although we have stated our judgement of the produced images above, we still need human participants to rate the quality of our image conversion.
+In terms of evaluation, we still want to use pixel comparison; we will compare the RBG values of the pixels of our output images to the RGB values of the corresponding pixels in the paired image. 
+
+We also want to try the qualitative evaluation approach described in our proposal, of having human participants explain what differences they see between the outputted images and the true pair images. Although we have stated our judgement of the produced images above, we still need human participants to rate the quality of our image conversion.
 
 
 ### Resources Used
