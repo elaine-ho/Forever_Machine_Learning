@@ -75,7 +75,7 @@ For the following experimentation, we kept all hyperparameters except one consta
 
 **Loss Functions**
 
-The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
+The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease as seen above. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
 
 **Batch Size**
 
@@ -85,7 +85,7 @@ One of the hyperparameters of our model is batch size. To find the batch size th
 
 **Learning Rate**
 
-To find the ideal learning rate, we employed a similar strategy. Starting with 1 and going down by powers of 10, we found that the learning rate that gave us the best results was 1e-4 or 0.0001.
+To find the ideal learning rate, we employed a similar strategy. We started with learning rate 1 and decreased by powers of 10. Learning rates 1 and 0.1 performed very poorly while learning rates 0.01, 0.001, and 0.0001 were able to learn the general shape of the image. We decided that learning rate  1e-3 or 0.001 is the best because the PSNR, and SSIM are the highest (higher the better) and the MSE is the lowest out of the later three learning rates. The color of the cloud was slightly off in comparison to learning rate 1e-4 but the image also looked less blurry while the blue hue in the sky was more smoothed out.
 
 Learning Rate | Sample Prediction | L1 Loss Function
 --------------|-------------------|-------------------
@@ -98,7 +98,7 @@ Learning Rate | Sample Prediction | L1 Loss Function
 
 **Filters**
 
-One of our most important experiments was with the model architecture itself, changing the number of filters in the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting.
+One of our most important experiments was with the model architecture itself, changing the number of filters in the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting. Just visually looking at the images, we can see the sharpness in the edges increase from 16 to 64 to 128. For 128 filters, the MSE improved as it decreased and the PSNR and SSIM improved as they both went up slightly. This was a clear indication of improvement and we decided that 128 filters was the best. We also wanted to try 256 filters but given that running 128 filters took long, we decided not to do it.
 
 Filters  | Sample Prediction | L1 Loss Function
 --------------|-------------------|-------------------
@@ -113,10 +113,10 @@ With our experimentation, we have found the following combinations to produce th
 
 - **Loss Function: L1 only**
 - **Batch Size: 20**
-- **Learning Rate: 1e-4**
+- **Learning Rate: 1e-3**
 - **Filters in the last Conv layer: 128**
 
-With more data, we believe that our model would have been able to produce better results as 950 image pairs is small. Having more computational power would have also allowed us to experiment further with more epochs, larger filter size, and more. If we had more time, we would have liked to experiment with generating images of larger size and running them on our mod
+With more data, we believe that our model would have been able to produce better results as 950 image pairs is small. Having more computational power would have allowed us to experiment with more data, epochs, filters, and layers. If we had more time, we would have liked to experiment with generating images of larger size (512x512) and running them on our model.
 
 ### Resources Used
 
