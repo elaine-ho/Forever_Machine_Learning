@@ -98,9 +98,14 @@ Learning Rate | Sample Prediction | L1 Loss Function
 
 **Filters**
 
-One of our most important experiments was with the model architecture itself, changing the size of the filter on the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with sizes 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting.
+One of our most important experiments was with the model architecture itself, changing the number of filters in the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting.
 
-(images of filter results)
+Filters  | Sample Prediction | L1 Loss Function
+--------------|-------------------|-------------------
+<img width=120/> | <img width=120/> | <img width=120/>
+**16** | ![16](/images/filters/filters16_img.png)  |  ![16](/images/filters/filters16_loss.png)
+**64** | ![64](/images/filters/filters64_img.png)  |  ![64](/images/filters/filters64_loss.png)
+**128** | ![128](/images/filters/filters128_img.png)  |  ![128](/images/filters/filters128_loss.png)
 
 **Summary of Results**
 
