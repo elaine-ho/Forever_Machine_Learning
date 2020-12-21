@@ -33,7 +33,7 @@ Once the layers are constructed, other parameters are set including the optimize
 
 ![Loss Function](/images/l1-loss-function.png)
 
-** Minecraft Video Footage**
+**Minecraft Video Footage**
 
 To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 3 fps video of the same footage under clear weather conditions. If we had more time and computational resources, it could have been possible to translate all the frames for a 60 fps output video. 
 
@@ -52,79 +52,66 @@ The second form of evaluation was through visually comparing side by side photos
 
 **Generated images for removing rain:**
 
-<!-- ![de-rain image 1](/images/derain1.png)
-
-![de-rain image 2](/images/derain2.png)
-
-![de-rain image 3](/images/derain4.png) -->
-
 ![de-rain image 4](/images/derain5.png)
-<!-- 
-![de-rain image 5](/images/derain6.png)
-
-![de-rain image 6](/images/derain7.png) -->
 
 **Inverse mapping of our model to add rain:**
 
-<!-- ![de-rain image 1](/images/rain1.png) -->
-
 ![de-rain image 2](/images/rain2.png)
-
-<!-- ![de-rain image 3](/images/rain3.png)
-
-![de-rain image 4](/images/rain4.png) -->
 
 Originally, for qualitative measurements we were hoping to achieve a 70% pixel accuracy rate for the RGB channels but realized that this would not work considering that our model will predict float values in the 0~1 range that would be mapped to 0~255. For this reason, we have come up with alternative evaluation metrics: Color Distance, Peak Signal to Noise Ratio (PSNR), Structural Similarity Method (SSIM), and Mean Squared Error (MSE). Color distance is a variant of the Euclidean distance that measures the RGB distance for each pixel. PSNR and SSIM are metrics often used in image comparison. PSNR is based on MSE and is a ratio between the maximum amount of power and the distorted noise of an image. SSIM measures the perceptual difference based on luminescence, contrast, and structure. For Color Distance and MSE, the lower values perform better but for PSNR and SSIM, the higher values perform better.
 
 <!-- ![Color Distance](/images/rain2.png) -->
 
-![PSNR](/images/psnr.png)
+![PSNR](/images/psnr.PNG)
 
-![SSIM](/images/ssim.png)
+![SSIM](/images/ssim.PNG)
 
-![MSE](/images/mse.png)
+![MSE](/images/mse.PNG)
+
 
 **Results from Experimentation**
+
 For the following experimentation, we kept all hyperparameters except one constant to see the effects of the changed hyperparameter.
 
-- **Loss Functions**
+**Loss Functions**
 
-  The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
+The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
 
 **Batch Size**
 
-  One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 20 produced the lowest mean color distance of 229 and decided to use that value.
+One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 20 produced the lowest mean color distance of 229 and decided to use that value.
 
 (images of batch size results)
 
 **Learning Rate**
 
-  To find the ideal learning rate, we employed a similar strategy. Starting with 0.1 and going down by powers of 10, we found that the learning rate that gave us the best results was 1e-4 or 0.0001.
+To find the ideal learning rate, we employed a similar strategy. Starting with 1 and going down by powers of 10, we found that the learning rate that gave us the best results was 1e-4 or 0.0001.
 
-Sample Prediction            |  L1 Loss Function
-:-------------------------:|:-------------------------:
-![lr 0.1](/images/lr01_img.png)  |  ![lr 0.1](/images/lr01_loss.png)
-![lr 0.01](/images/lr001_img.png)  |  ![lr 0.01](/images/lr001_loss.png)
-<!-- ![lr 0.001](/images/lr0001_img.png)  |  ![lr 0.001](/images/lr0001_loss.png)
-![lr 0.0001](/images/lr00001_img.png)  |  ![lr 0.0001](/images/lr00001_loss.png)
-![lr 0.00001](/images/lr000001_img.png)  |  ![lr 0.00001](/images/lr000001_loss.png) -->
+Learning Rate | Sample Prediction | L1 Loss Function
+--------------|-------------------|-------------------
+<img width=120/> | <img width=120/> | <img width=120/>
+**1** | ![lr 1](/images/lr/lr1_img.png)  |  ![lr 1](/images/lr/lr1_loss.png)
+**0.1** | ![lr 0.1](/images/lr/lr01_img.png)  |  ![lr 0.1](/images/lr/lr01_loss.png)
+**0.01** | ![lr 0.01](/images/lr/lr001_img.png)  |  ![lr 0.01](/images/lr/lr001_loss.png)
+**0.001** | ![lr 0.001](/images/lr/lr0001_img.png)  |  ![lr 0.001](/images/lr/lr0001_loss.png)
+**0.0001** | ![lr 0.0001](/images/lr/lr00001_img.png)  |  ![lr 0.0001](/images/lr/lr00001_loss.png)
 
 **Filters**
 
-  One of our most important experiments was with the model architecture itself, changing the size of the filter on the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with sizes 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting.
+One of our most important experiments was with the model architecture itself, changing the size of the filter on the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with sizes 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting.
 
 (images of filter results)
 
 **Summary of Results**
 
-  With our experimentation, we have found the following combinations to produce the most optimal results:
+With our experimentation, we have found the following combinations to produce the most optimal results:
 
-  - Loss Function: L1 only
-  - Batch Size: 20
-  - Learning Rate: 1e-4
-  - Filters in the last Conv layer: 128
+- **Loss Function: L1 only**
+- **Batch Size: 20**
+- **Learning Rate: 1e-4**
+- **Filters in the last Conv layer: 128**
 
-  With more data, we believe that our model would have been able to produce better results as 950 image pairs is small. Having more computational power would have also allowed us to experiment further with more epochs, larger filter size, and more. If we had more time, we would have liked to experiment with generating images of larger size and running them on our mod
+With more data, we believe that our model would have been able to produce better results as 950 image pairs is small. Having more computational power would have also allowed us to experiment further with more epochs, larger filter size, and more. If we had more time, we would have liked to experiment with generating images of larger size and running them on our mod
 
 ### Resources Used
 
