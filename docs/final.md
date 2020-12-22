@@ -105,7 +105,7 @@ Batch Size | Sample Prediction | Data
 
 **Filters**
 
-One of our most important experiments was with the model architecture itself: changing the number of filters in the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting. Just visually looking at the images, we can see the sharpness in the edges increase from 16 to 64 to 128. The evaluation metrics also showed improvement as color distance/MSE went down and PSNR/SSIM went up. This was a clear indication of improvement and we decided that 128 filters was the best. We also wanted to try 256 filters but given that running 128 filters took long, we decided not to do it.
+One of our most important experiments was with the model architecture itself: changing the number of filters in the last convolutional layer. This will make the model more complex, potentially allowing it to learn more patterns. We experimented with 16, 64, and 128 and found that the more complex the model got, the better predictions it was outputting. Just visually looking at the images, we can see the sharpness in the edges increase from 16 to 64 to 128. The evaluation metrics also showed improvement as color distance/MSE went down and PSNR/SSIM went up. This was a clear indication of improvement and we decided that 128 filters was the best we could get. We also wanted to experiment with higher numbers like 256 filters, but with our available hardware that was not possible.
 
 Filters  | Sample Prediction | L1 Loss Function
 --------------|-------------------|-------------------
