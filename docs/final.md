@@ -62,7 +62,7 @@ The second form of evaluation was through visually comparing side by side photos
 
 Originally, for qualitative measurements we were hoping to achieve a 70% pixel accuracy rate for the RGB channels but realized that this would not work considering that our model will predict float values in the 0~1 range that would be mapped to 0~255. For this reason, we have come up with alternative evaluation metrics: Color Distance, Peak Signal to Noise Ratio (PSNR), Structural Similarity Method (SSIM), and Mean Squared Error (MSE). Color distance is a variant of the Euclidean distance that measures the RGB distance for each pixel. PSNR and SSIM are metrics often used in image comparison. PSNR is based on MSE and is a ratio between the maximum amount of power and the distorted noise of an image. SSIM measures the perceptual difference based on luminescence, contrast, and structure. For Color Distance and MSE, the lower values perform better but for PSNR and SSIM, the higher values perform better.
 
-![Color Distance](/images/cd.png)
+![Color Distance](/images/cd.PNG)
 
 ![PSNR](/images/psnr.PNG)
 
