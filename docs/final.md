@@ -33,15 +33,7 @@ Once the layers are constructed, other parameters are set including the optimize
 
 **Minecraft Video Footage**
 
-<!-- insert youtube src for walkaround original video below and uncomment -->
-<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
-<!-- insert youtube src for walkaround predicted video below and uncomment -->
-<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
-Original Video |  Model Prediction
---------------|-------------------|-------------------
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XtZNd6S2Zn4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> | <iframe width="560" height="315" src="https://www.youtube.com/embed/XtZNd6S2Zn4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/aq9EahGSV9I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 12 fps video of the same footage under clear weather conditions. 
 
@@ -87,7 +79,7 @@ The loss function is derived from the Pixel to Pixel GANS model which multiples 
 
 **Learning Rate**
 
-To find the ideal learning rate, we employed a similar strategy. We started with learning rate 1 and decreased by powers of 10. Learning rates 1 and 0.1 performed very poorly while learning rates 0.01, 0.001, and 0.0001 were able to learn the general shape of the image. We decided that learning rate  1e-3 or 0.001 is the best because the PSNR and SSIM are the highest (higher the better) and the MSE is the lowest out of the later three learning rates. The color of the cloud was slightly off in comparison to learning rate 1e-4 but the image also looked less blurry while the blue hue in the sky was more smoothed out.
+To find the ideal learning rate, we employed a similar strategy. We started with learning rate 1 and decreased by powers of 10. Learning rates 1 and 0.1 performed very poorly while learning rates 0.01, 0.001, and 0.0001 were able to learn the general shape of the image. We decided that learning rate  1e-3 or 0.001 is the best because the PSNR/SSIM are the highest (higher the better) and the color distance/MSE is the lowest in the sample prediction. The average values of the color difference, MSE, PSNR, and SSIM for all predictions were also very close for the later 3 so we decided on the middle learning rate.
 
 Learning Rate | Sample Prediction | L1 Loss Function
 --------------|-------------------|-------------------
