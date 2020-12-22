@@ -37,9 +37,9 @@ Once the layers are constructed, other parameters are set including the optimize
 
 **Minecraft Video Footage**
 
-To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 3 fps video of the same footage under clear weather conditions. If we had more time and computational resources, it could have been possible to translate all the frames for a 60 fps output video. 
+To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 12 fps video of the same footage under clear weather conditions. 
 
-Some frames of the output video have white spots in the center or unremoved rain effects in the lower parts. This is likely because those frames were too different from the training data. Our training data looked straight ahead at the horizon over landscape, but some frames of the video looked up at the sky or at water. If we had more time and resources to build a larger and more diverse training dataset, it could have been possible to get better results.
+Some frames of the output video have white spots in the center or unremoved rain effects. This is likely because those frames were too different from the training data. Our training data looked straight ahead at the horizon over landscape; many frames of the test video looked up at the sky, directly at water (meaning the entire frame was blue) or was otherwise positioned in a way that the sun should not have been in the center. If we had more time and resources to build a larger and more diverse training dataset, it could have been possible to get better results here.
 
 
 ### Evaluation
@@ -94,7 +94,7 @@ Learning Rate | Sample Prediction | L1 Loss Function
 
 **Batch Size**
 
-One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 5 produced the lowest mean color distance of 9 and decided to use that value.
+One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance, as well as MSE, PSNR, and SSIM of their test results. We found that batch size 5 was able to minimize color distance and MSE while maximizing PSNR and SSIM; we decided to use that value.
 
 Learning Rate | Sample Prediction | Data
 --------------|-------------------|-------------------
