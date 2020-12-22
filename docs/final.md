@@ -8,9 +8,6 @@ Title: Final Report
 <!-- insert youtube src for video below and uncomment -->
 <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 
-<!-- insert youtube src for walkaround video below and uncomment -->
-<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
 
 ### Project Summary
 
@@ -36,6 +33,12 @@ Once the layers are constructed, other parameters are set including the optimize
 ![Loss Function](/images/l1-loss-function.png)
 
 **Minecraft Video Footage**
+
+<!-- insert youtube src for walkaround original video below and uncomment -->
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+<!-- insert youtube src for walkaround predicted video below and uncomment -->
+<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 
 To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 12 fps video of the same footage under clear weather conditions. 
 
