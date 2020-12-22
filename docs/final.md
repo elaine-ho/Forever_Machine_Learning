@@ -79,7 +79,6 @@ For the following experimentation, we kept all hyperparameters except one consta
 
 The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease as seen above. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
 
-
 **Learning Rate**
 
 To find the ideal learning rate, we employed a similar strategy. We started with learning rate 1 and decreased by powers of 10. Learning rates 1 and 0.1 performed very poorly while learning rates 0.01, 0.001, and 0.0001 were able to learn the general shape of the image. We decided that learning rate  1e-3 or 0.001 is the best because the PSNR, and SSIM are the highest (higher the better) and the MSE is the lowest out of the later three learning rates. The color of the cloud was slightly off in comparison to learning rate 1e-4 but the image also looked less blurry while the blue hue in the sky was more smoothed out.
@@ -122,7 +121,7 @@ Filters  | Sample Prediction | L1 Loss Function
 With our experimentation, we have found the following combinations to produce the most optimal results:
 
 - **Loss Function: L1 only**
-- **Batch Size: 20**
+- **Batch Size: 5**
 - **Learning Rate: 1e-3**
 - **Filters in the last Conv layer: 128**
 
