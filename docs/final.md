@@ -79,7 +79,7 @@ The loss function is derived from the Pixel to Pixel GANS model which multiples 
 
 **Batch Size**
 
-One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 20 produced the lowest mean color distance of 229 and decided to use that value.
+One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance, as well as MSE, PSNR, and SSIM of their test results. We found that batch size 5 was able to minimize color distance and MSE while maximizing PSNR and SSIM; we decided to use that value.
 
 (images of batch size results)
 
@@ -112,7 +112,7 @@ Filters  | Sample Prediction | L1 Loss Function
 With our experimentation, we have found the following combinations to produce the most optimal results:
 
 - **Loss Function: L1 only**
-- **Batch Size: 20**
+- **Batch Size: 5**
 - **Learning Rate: 1e-3**
 - **Filters in the last Conv layer: 128**
 
