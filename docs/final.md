@@ -23,6 +23,8 @@ This project will allow users to share gameplay in different environment conditi
 
 Our first task was to generate a collection of paired images depicting a given scene in two different conditions, rainy and clear weather. Using Malmo, we created a mission for the agent that uses chat commands to teleport him to random coordinates in the Minecraft World. Our script then takes a screenshot of the Minecraft client window, capturing what the agent sees, first with rainy weather. The code then uses another chat command to change the weather to clear weather; another screenshot is taken from the same position, capturing what the agent sees, under clear weather. Our collected images were manually sorted to remove useless images such as all black underwater images. We also have data of snow and desert areas with no rain, as these regions do not have those properties. All our current data is taken at noon in Minecraft time.
 
+We collected and built our dataset by randomly teleporting the Malmo agent to random coordinates in a Minecraft world and taking screenshots with rainy and clear weather. Our dataset consists of 950 paired images, after filtering out underwater images and areas without rain. 
+
 For our model, we took inspiration from an image to image translation GANs model. Since the combination of Malmo and Minecraft allowed us to generate paired data, we decided to use only the Generator to create a deep neural network with a U-Net architecture. This encoder and decoder structure of the U-net works to downsample and upsample the image with skip connections between mirrored layers as shown below from Phillip Isola’s paper. The layers are comprised of convolutions, rectifiers, and batch normalization. The encoder down samples the image to 1x1 through 8 blocks down and up samples back to 256x256 with 8 blocks up, gradually reducing the filter size as recommended in the referenced image to image translation paper.
 
 ![Encoder-Decoder Unets](/images/model.png)
@@ -60,7 +62,7 @@ The second form of evaluation was through visually comparing side by side photos
 
 Originally, for qualitative measurements we were hoping to achieve a 70% pixel accuracy rate for the RGB channels but realized that this would not work considering that our model will predict float values in the 0~1 range that would be mapped to 0~255. For this reason, we have come up with alternative evaluation metrics: Color Distance, Peak Signal to Noise Ratio (PSNR), Structural Similarity Method (SSIM), and Mean Squared Error (MSE). Color distance is a variant of the Euclidean distance that measures the RGB distance for each pixel. PSNR and SSIM are metrics often used in image comparison. PSNR is based on MSE and is a ratio between the maximum amount of power and the distorted noise of an image. SSIM measures the perceptual difference based on luminescence, contrast, and structure. For Color Distance and MSE, the lower values perform better but for PSNR and SSIM, the higher values perform better.
 
-<!-- ![Color Distance](/images/rain2.png) -->
+![Color Distance](/images/cd.png)
 
 ![PSNR](/images/psnr.PNG)
 
@@ -77,11 +79,6 @@ For the following experimentation, we kept all hyperparameters except one consta
 
 The loss function is derived from the Pixel to Pixel GANS model which multiples a lambda value of 100 to the L1 loss and concatenates it to BCE. Since this makes the L1 loss value extremely large, we believe that BCE has an insignificant effect on the loss function which is why it is unable to decrease as seen above. The BCE loss function was also run on its own but was not learning patterns, most likely because the L1 loss function maintains the original RGB of the input image. For this reason, we removed BCE and decided to only use the L1 loss. 
 
-**Batch Size**
-
-One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 20 produced the lowest mean color distance of 229 and decided to use that value.
-
-(images of batch size results)
 
 **Learning Rate**
 
@@ -95,6 +92,19 @@ Learning Rate | Sample Prediction | L1 Loss Function
 **0.01** | ![lr 0.01](/images/lr/lr001_img.png)  |  ![lr 0.01](/images/lr/lr001_loss.png)
 **0.001** | ![lr 0.001](/images/lr/lr0001_img.png)  |  ![lr 0.001](/images/lr/lr0001_loss.png)
 **0.0001** | ![lr 0.0001](/images/lr/lr00001_img.png)  |  ![lr 0.0001](/images/lr/lr00001_loss.png)
+
+**Batch Size**
+
+One of the hyperparameters of our model is batch size. To find the batch size that produced the best results, we tried training the model on batch sizes 5, 10, 20, and 40 and looked at the means of color distance of their test results. We found that batch size 5 produced the lowest mean color distance of 9 and decided to use that value.
+
+Learning Rate | Sample Prediction | Data
+--------------|-------------------|-------------------
+<img width=120/> | <img width=120/> | <img width=120/>
+**5** | ![batch 5](/images/batches/batch5.png)  |  ![batch 5 data](/images/batches/batch5results.png)
+**10** | ![batch 10](/images/batches/batch10.png)  |  ![batch 10 data](/images/batches/batch10results.png)
+**20** | ![batch 20](/images/batches/batch20.png)  |  ![batch 20 data](/images/batches/batch20results.png)
+**40** | ![batch 40](/images/batches/batch40.png)  |  ![batch 40 data](/images/batches/batch40results.png)
+
 
 **Filters**
 
@@ -115,6 +125,32 @@ With our experimentation, we have found the following combinations to produce th
 - **Batch Size: 20**
 - **Learning Rate: 1e-3**
 - **Filters in the last Conv layer: 128**
+
+**Best Run**
+
+For de-raining images:
+
+![De-rain 1](/images/best/derain1.png)
+
+![De-rain 2](/images/best/derain2.png)
+
+![De-rain 3](/images/best/derain3.png)
+
+![De-rain 4](/images/best/derain4.png)
+
+![De-rain 5](/images/best/derain5.png)
+
+![De-rain 6](/images/best/derain6.png)
+
+For adding rain to images:
+
+![Rain 1](/images/best/rain1.png)
+
+![Rain 2](/images/best/rain2.png)
+
+![Rain 2](/images/best/rain2.png)
+
+![Rain 2](/images/best/rain2.png)
 
 With more data, we believe that our model would have been able to produce better results as 950 image pairs is small. Having more computational power would have allowed us to experiment with more data, epochs, filters, and layers. If we had more time, we would have liked to experiment with generating images of larger size (512x512) and running them on our model.
 
