@@ -39,6 +39,10 @@ Once the layers are constructed, other parameters are set including the optimize
 <!-- insert youtube src for walkaround predicted video below and uncomment -->
 <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/GK7XkF3Pivk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 
+Original Video |  Model Prediction
+--------------|-------------------|-------------------
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XtZNd6S2Zn4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> | <iframe width="560" height="315" src="https://www.youtube.com/embed/XtZNd6S2Zn4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 To see how our project could possibly be extended to video, we tried to remove rain weather effects from a video of Minecraft footage. Our input was a 90 second, 60 fps video of Minecraft gameplay, walking around the world in rainy weather. The video was broken into individual frames, which were then inputted into the model. Converted frames were then stitched back together to form a 90 second, 12 fps video of the same footage under clear weather conditions. 
 
 Some frames of the output video have white spots in the center or unremoved rain effects. This is likely because those frames were too different from the training data. Our training data looked straight ahead at the horizon over landscape; many frames of the test video looked up at the sky, directly at water (meaning the entire frame was blue) or was otherwise positioned in a way that the sun should not have been in the center. If we had more time and resources to build a larger and more diverse training dataset, it could have been possible to get better results here.
@@ -88,11 +92,11 @@ To find the ideal learning rate, we employed a similar strategy. We started with
 Learning Rate | Sample Prediction | L1 Loss Function
 --------------|-------------------|-------------------
 <img width=120/> | <img width=120/> | <img width=120/>
-**1** | ![lr 1](/images/lr/lr1_img.png)  |  ![lr 1](/images/lr/lr1_loss.png)
-**0.1** | ![lr 0.1](/images/lr/lr01_img.png)  |  ![lr 0.1](/images/lr/lr01_loss.png)
-**0.01** | ![lr 0.01](/images/lr/lr001_img.png)  |  ![lr 0.01](/images/lr/lr001_loss.png)
-**0.001** | ![lr 0.001](/images/lr/lr0001_img.png)  |  ![lr 0.001](/images/lr/lr0001_loss.png)
-**0.0001** | ![lr 0.0001](/images/lr/lr00001_img.png)  |  ![lr 0.0001](/images/lr/lr00001_loss.png)
+**1** | ![lr 1](/images/lr/lr1_img.png)  |  ![lr 1](/images/lr/rate1eval.png)
+**0.1** | ![lr 0.1](/images/lr/lr01_img.png)  |  ![lr 0.1](/images/lr/rate1e-1eval.png)
+**0.01** | ![lr 0.01](/images/lr/lr001_img.png)  |  ![lr 0.01](/images/lr/rate1e-2eval.png)
+**0.001** | ![lr 0.001](/images/lr/lr0001_img.png)  |  ![lr 0.001](/images/lr/rate1e-3eval.png)
+**0.0001** | ![lr 0.0001](/images/lr/lr00001_img.png)  |  ![lr 0.0001](/images/lr/rate1e-4eval.png)
 
 **Batch Size**
 
